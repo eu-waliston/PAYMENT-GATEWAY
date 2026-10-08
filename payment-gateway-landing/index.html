@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway JS — Sistema de Pagamentos em JavaScript Puro</title>
+    <meta name="description"
+        content="Gateway de pagamentos educacional, moderno e extensível, 100% JavaScript Vanilla. Anti-fraude, webhooks, múltiplos provedores e mais.">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">
+                    <span class="logo-icon">💳</span>
+                    <span>PaymentGateway<span style="color: var(--primary-light);">.js</span></span>
+                </a>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#features">Funcionalidades</a></li>
+                    <li><a href="#providers">Provedores</a></li>
+                    <li><a href="#architecture">Arquitetura</a></li>
+                    <li><a href="#examples">Exemplos</a></li>
+                    <li><a href="#comparison">Comparativo</a></li>
+                </ul>
+
+                <div class="nav-actions">
+                    <a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway" class="btn btn-outline btn-sm">Documentação</a>
+                    <a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway" class="btn btn-primary btn-sm">GitHub</a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Abrir menu">☰</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========== HERO ========== -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="dot"></span>
+                        100% JavaScript Vanilla — Sem dependências
+                    </div>
+
+                    <h1>
+                        O gateway de pagamentos
+                        <span class="gradient-text">feito para aprender</span>
+                        e escalar.
+                    </h1>
+
+                    <p>
+                        Sistema completo e extensível para processar cartão, PIX, boleto e PayPal.
+                        Com anti-fraude nativo, webhooks, retry automático e arquitetura modular.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="#examples" class="btn btn-primary">
+                            ⚡ Ver Exemplos
+                        </a>
+                        <a href="#architecture" class="btn btn-outline">
+                            📖 Explorar Arquitetura
+                        </a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <div class="value">100%</div>
+                            <div class="label">JavaScript Puro</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="value">4+</div>
+                            <div class="label">Provedores</div>
+                        </div>
+                        <div class="hero-stat">
+                            <div class="value">3x</div>
+                            <div class="label">Retry Automático</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-code">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-title">payment.js</span>
+                    </div>
+                    <div class="code-body">
+                        <span class="kw">const</span> <span class="var">gateway</span> = <span class="kw">new</span>
+                        <span class="fn">PaymentGateway</span>({<br>
+                        &nbsp;&nbsp;<span class="prop">retryAttempts</span>: <span class="num">3</span>,<br>
+                        &nbsp;&nbsp;<span class="prop">retryDelay</span>: <span class="num">1000</span><br>
+                        });<br><br>
+                        <span class="cm">// Processar pagamento</span><br>
+                        <span class="kw">const</span> <span class="var">result</span> = <span class="kw">await</span>
+                        <span class="var">gateway</span>.<span class="fn">processPayment</span>({<br>
+                        &nbsp;&nbsp;<span class="prop">amount</span>: <span class="num">199.90</span>,<br>
+                        &nbsp;&nbsp;<span class="prop">currency</span>: <span class="str">'BRL'</span>,<br>
+                        &nbsp;&nbsp;<span class="prop">provider</span>: <span class="str">'stripe'</span>,<br>
+                        &nbsp;&nbsp;<span class="prop">paymentMethod</span>: <span class="str">'credit_card'</span>,<br>
+                        &nbsp;&nbsp;<span class="prop">cardDetails</span>: { ... }<br>
+                        });<br><br>
+                        <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">'✅
+                            Aprovado!'</span>, <span class="var">result</span>.<span class="prop">transactionId</span>);
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== TRUST ========== -->
+    <section class="trust">
+        <div class="container">
+            <p class="trust-label">Compatível com os principais provedores do mercado</p>
+            <div class="trust-logos">
+                <span>Stripe</span>
+                <span>PayPal</span>
+                <span>PIX</span>
+                <span>Boleto</span>
+                <span>Mercado Pago</span>
+                <span>PagSeguro</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FEATURES ========== -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">Funcionalidades</span>
+                <h2 class="section-title">Tudo que um gateway precisa.<br><span class="gradient-text">Sem
+                        enrolação.</span></h2>
+                <p class="section-subtitle">
+                    Do processamento básico ao anti-fraude avançado, cada componente foi pensado para ser claro,
+                    testável e fácil de estender.
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">💳</div>
+                    <h3>Múltiplos Métodos</h3>
+                    <p>Cartão de crédito, débito, PIX, boleto e PayPal. Cada método com seu fluxo e validações
+                        específicas.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Anti-Fraude Integrado</h3>
+                    <p>Análise de múltiplas tentativas, verificação de BIN suspeito, limite por hora e score de risco
+                        automático.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Resiliência</h3>
+                    <p>Retry automático com 3 tentativas, delay configurável, timeout e fallback entre provedores.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Webhooks</h3>
+                    <p>Notificações em tempo real para sistemas externos. Registre URLs para eventos de sucesso e falha.
+                    </p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">📊</div>
+                    <h3>Relatórios e Métricas</h3>
+                    <p>Resumo estatístico com total processado, taxa de sucesso, distribuição por provedor e ticket
+                        médio.</p>
+                </div>
+
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Segurança PCI</h3>
+                    <p>CVV não armazenado, números de cartão mascarados nos logs, algoritmo de Luhn e sanitização de
+                        inputs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== PROVIDERS ========== -->
+    <section class="section" id="providers" style="background: var(--bg-card);">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">Provedores</span>
+                <h2 class="section-title">Um gateway, <span class="gradient-text">vários caminhos.</span></h2>
+                <p class="section-subtitle">
+                    Cada provedor implementa a mesma interface. Trocar de Stripe para PIX é uma questão de configuração.
+                </p>
+            </div>
+
+            <div class="providers-grid">
+                <div class="provider-card reveal">
+                    <div class="provider-icon">💳</div>
+                    <h4>Stripe</h4>
+                    <p>Cartões internacionais, assinaturas e tokenização.</p>
+                    <span class="provider-tag">~500ms</span>
+                </div>
+
+                <div class="provider-card reveal">
+                    <div class="provider-icon">🅿️</div>
+                    <h4>PayPal</h4>
+                    <p>Redirect e API para contas internacionais.</p>
+                    <span class="provider-tag">~800ms</span>
+                </div>
+
+                <div class="provider-card reveal">
+                    <div class="provider-icon">⚡</div>
+                    <h4>PIX</h4>
+                    <p>Pagamento instantâneo com QR Code e copia e cola.</p>
+                    <span class="provider-tag">~300ms</span>
+                </div>
+
+                <div class="provider-card reveal">
+                    <div class="provider-icon">🧾</div>
+                    <h4>Boleto</h4>
+                    <p>Vencimento programado, código de barras e URL.</p>
+                    <span class="provider-tag">~200ms</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== ARCHITECTURE ========== -->
+    <section class="section" id="architecture">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">Arquitetura</span>
+                <h2 class="section-title">Modular, <span class="gradient-text">extensível</span> e transparente.</h2>
+                <p class="section-subtitle">
+                    Core, provedores e utilitários separados. Fácil de testar, manter e evoluir.
+                </p>
+            </div>
+
+            <div class="arch-grid">
+                <div class="reveal">
+                    <ul class="flow-steps">
+                        <li>
+                            <h4>Cliente inicia pagamento</h4>
+                            <p>Dados enviados ao gateway via API.</p>
+                        </li>
+                        <li>
+                            <h4>Validação</h4>
+                            <p>Verifica campos obrigatórios, formato e algoritmo de Luhn.</p>
+                        </li>
+                        <li>
+                            <h4>Anti-fraude</h4>
+                            <p>Analisa risco, múltiplas tentativas e BINs suspeitos.</p>
+                        </li>
+                        <li>
+                            <h4>Roteamento</h4>
+                            <p>Escolhe o melhor provedor com base no método e moeda.</p>
+                        </li>
+                        <li>
+                            <h4>Processamento e Retry</h4>
+                            <p>Envia ao provedor e tenta novamente em caso de falha.</p>
+                        </li>
+                        <li>
+                            <h4>Registro e Webhook</h4>
+                            <p>Salva transação e notifica sistemas externos.</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="arch-diagram reveal">
+                    <pre style="margin: 0; font-family: inherit;">
+┌─────────────────────────────────────────────┐
+│              <span class="hl">PAYMENT GATEWAY</span>              │
+├──────────────┬──────────────┬───────────────┤
+│    <span class="hl2">CORE</span>      │  <span class="hl2">PROVIDERS</span>   │  <span class="hl2">UTILITIES</span>    │
+├──────────────┼──────────────┼───────────────┤
+│ • Validation │ • Stripe     │ • Logger      │
+│ • Fraud      │ • PayPal     │ • ID Generator│
+│ • Webhooks   │ • Pix        │ • Receipt     │
+│ • Transações │ • Boleto     │ • Metrics     │
+└──────────────┴──────────────┴───────────────┘
+         │              │              │
+         ▼              ▼              ▼
+┌─────────────────────────────────────────────┐
+│              <span class="hl">DATA STORAGE</span>                 │
+│        (In-memory / Ready for DB)           │
+└─────────────────────────────────────────────┘
+          </pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CODE EXAMPLES ========== -->
+    <section class="section" id="examples" style="background: var(--bg-card);">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">Exemplos Práticos</span>
+                <h2 class="section-title">Código que <span class="gradient-text">funciona.</span></h2>
+                <p class="section-subtitle">
+                    Exemplos reais de e-commerce, assinaturas e dashboards de análise.
+                </p>
+            </div>
+
+            <div class="reveal">
+                <div class="code-tabs">
+                    <button class="code-tab active" data-tab="ecommerce">🛒 E-commerce</button>
+                    <button class="code-tab" data-tab="subscription">📅 Assinaturas</button>
+                    <button class="code-tab" data-tab="dashboard">📊 Dashboard</button>
+                </div>
+
+                <div class="code-panel active" id="panel-ecommerce">
+                    <div class="hero-code">
+                        <div class="code-header">
+                            <span class="code-dot red"></span>
+                            <span class="code-dot yellow"></span>
+                            <span class="code-dot green"></span>
+                            <span class="code-title">ecommerce.js</span>
+                        </div>
+                        <div class="code-body">
+                            <span class="kw">class</span> <span class="fn">Ecommerce</span> {<br>
+                            &nbsp;&nbsp;<span class="fn">constructor</span>() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.<span class="prop">gateway</span> =
+                            <span class="kw">new</span> <span class="fn">PaymentGateway</span>();<br>
+                            &nbsp;&nbsp;}<br><br>
+                            &nbsp;&nbsp;<span class="kw">async</span> <span class="fn">checkout</span>(<span
+                                class="var">carrinho</span>, <span class="var">dadosPagamento</span>) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Calcular total</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="var">total</span> = <span
+                                class="var">carrinho</span>.<span class="prop">items</span>.<span
+                                class="fn">reduce</span>((<span class="var">sum</span>, <span class="var">item</span>)
+                            => <span class="var">sum</span> + <span class="var">item</span>.<span
+                                class="prop">price</span>, <span class="num">0</span>);<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Processar pagamento</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="var">pagamento</span> =
+                            <span class="kw">await</span> <span class="kw">this</span>.<span
+                                class="prop">gateway</span>.<span class="fn">processPayment</span>({<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">amount</span>: <span
+                                class="var">total</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">currency</span>: <span
+                                class="str">'BRL'</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">provider</span>: <span
+                                class="var">dadosPagamento</span>.<span class="prop">provider</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">paymentMethod</span>: <span
+                                class="var">dadosPagamento</span>.<span class="prop">method</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">customerEmail</span>: <span
+                                class="var">dadosPagamento</span>.<span class="prop">email</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">cardDetails</span>: <span
+                                class="var">dadosPagamento</span>.<span class="prop">card</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">description</span>: <span
+                                class="str">`Compra #${carrinho.id}`</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;});<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Atualizar pedido</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="var">carrinho</span>.<span class="prop">status</span> =
+                            <span class="str">'paid'</span>;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="var">carrinho</span>.<span
+                                class="prop">transactionId</span> = <span class="var">pagamento</span>.<span
+                                class="prop">transactionId</span>;<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span
+                                class="var">pagamento</span>;<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-panel" id="panel-subscription">
+                    <div class="hero-code">
+                        <div class="code-header">
+                            <span class="code-dot red"></span>
+                            <span class="code-dot yellow"></span>
+                            <span class="code-dot green"></span>
+                            <span class="code-title">subscription.js</span>
+                        </div>
+                        <div class="code-body">
+                            <span class="kw">class</span> <span class="fn">SubscriptionManager</span> {<br>
+                            &nbsp;&nbsp;<span class="fn">constructor</span>() {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.<span class="prop">gateway</span> =
+                            <span class="kw">new</span> <span class="fn">PaymentGateway</span>();<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.<span class="prop">subscriptions</span>
+                            = <span class="kw">new</span> <span class="fn">Map</span>();<br>
+                            &nbsp;&nbsp;}<br><br>
+                            &nbsp;&nbsp;<span class="kw">async</span> <span class="fn">createSubscription</span>(<span
+                                class="var">plan</span>, <span class="var">customer</span>) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Pagamento recorrente mensal</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="var">payment</span> =
+                            <span class="kw">await</span> <span class="kw">this</span>.<span
+                                class="prop">gateway</span>.<span class="fn">processPayment</span>({<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">amount</span>: <span
+                                class="var">plan</span>.<span class="prop">price</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">currency</span>: <span
+                                class="str">'BRL'</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">provider</span>: <span
+                                class="str">'stripe'</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">paymentMethod</span>: <span
+                                class="str">'credit_card'</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">customerEmail</span>: <span
+                                class="var">customer</span>.<span class="prop">email</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">cardDetails</span>: <span
+                                class="var">customer</span>.<span class="prop">card</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">description</span>: <span
+                                class="str">`Assinatura ${plan.name} - Mensal`</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">recurring</span>: <span
+                                class="kw">true</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;});<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="var">subscription</span>
+                            = {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">id</span>: <span
+                                class="str">`SUB_${Date.now()}`</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">plan</span>, <span
+                                class="var">customer</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">nextBilling</span>: <span
+                                class="kw">new</span> <span class="fn">Date</span>(<span class="fn">Date.now</span>() +
+                            <span class="num">30</span> * <span class="num">86400000</span>),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">status</span>: <span
+                                class="str">'active'</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">transactions</span>: [<span
+                                class="var">payment</span>]<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;};<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.<span
+                                class="prop">subscriptions</span>.<span class="fn">set</span>(<span
+                                class="var">subscription</span>.<span class="prop">id</span>, <span
+                                class="var">subscription</span>);<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> <span
+                                class="var">subscription</span>;<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="code-panel" id="panel-dashboard">
+                    <div class="hero-code">
+                        <div class="code-header">
+                            <span class="code-dot red"></span>
+                            <span class="code-dot yellow"></span>
+                            <span class="code-dot green"></span>
+                            <span class="code-title">dashboard.js</span>
+                        </div>
+                        <div class="code-body">
+                            <span class="kw">class</span> <span class="fn">PaymentDashboard</span> {<br>
+                            &nbsp;&nbsp;<span class="fn">constructor</span>(<span class="var">gateway</span>) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">this</span>.<span class="prop">gateway</span> =
+                            <span class="var">gateway</span>;<br>
+                            &nbsp;&nbsp;}<br><br>
+                            &nbsp;&nbsp;<span class="fn">generateReport</span>(<span class="var">period</span>) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="var">transactions</span>
+                            = <span class="kw">this</span>.<span class="prop">gateway</span>.<span
+                                class="fn">getTransactions</span>({<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">startDate</span>: <span
+                                class="var">period</span>.<span class="prop">start</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">endDate</span>: <span
+                                class="var">period</span>.<span class="prop">end</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;});<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Análise por método de pagamento</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="var">byMethod</span> =
+                            {};<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="var">transactions</span>.<span
+                                class="fn">forEach</span>(<span class="var">t</span> => {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">byMethod</span>[<span
+                                class="var">t</span>.<span class="prop">paymentMethod</span>] = (<span
+                                class="var">byMethod</span>[<span class="var">t</span>.<span
+                                class="prop">paymentMethod</span>] || <span class="num">0</span>) + <span
+                                class="var">t</span>.<span class="prop">amount</span>;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;});<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="cm">// Taxa de conversão</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="var">successful</span> =
+                            <span class="var">transactions</span>.<span class="fn">filter</span>(<span
+                                class="var">t</span> => <span class="var">t</span>.<span class="prop">status</span> ===
+                            <span class="str">'completed'</span>).<span class="prop">length</span>;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">const</span> <span class="var">conversion</span> =
+                            (<span class="var">successful</span> / <span class="var">transactions</span>.<span
+                                class="prop">length</span> * <span class="num">100</span>).<span
+                                class="fn">toFixed</span>(<span class="num">2</span>);<br><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">period</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">totalTransactions</span>: <span
+                                class="var">transactions</span>.<span class="prop">length</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">conversion</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="var">byMethod</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prop">byProvider</span>: <span
+                                class="kw">this</span>.<span class="prop">gateway</span>.<span
+                                class="fn">getSummary</span>().<span class="prop">byProvider</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;};<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== COMPARISON ========== -->
+    <section class="section" id="comparison">
+        <div class="container">
+            <div class="reveal">
+                <span class="section-label">Comparativo</span>
+                <h2 class="section-title">Por que usar <span class="gradient-text">este gateway?</span></h2>
+                <p class="section-subtitle">
+                    Feito para a comunidade JavaScript. Sem mensalidade, sem caixa preta.
+                </p>
+            </div>
+
+            <div class="comparison-table-wrapper reveal">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Este Gateway</th>
+                            <th>Outros</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>JavaScript puro</td>
+                            <td class="check">✅</td>
+                            <td class="cross">❌</td>
+                        </tr>
+                        <tr>
+                            <td>Anti-fraude nativo</td>
+                            <td class="check">✅</td>
+                            <td class="cross">❌</td>
+                        </tr>
+                        <tr>
+                            <td>Open Source</td>
+                            <td class="check">✅</td>
+                            <td class="cross">❌</td>
+                        </tr>
+                        <tr>
+                            <td>Sem mensalidade</td>
+                            <td class="check">✅</td>
+                            <td class="cross">❌</td>
+                        </tr>
+                        <tr>
+                            <td>Webhooks</td>
+                            <td class="check">✅</td>
+                            <td class="check">✅</td>
+                        </tr>
+                        <tr>
+                            <td>Retry automático</td>
+                            <td class="check">✅</td>
+                            <td class="cross">❌</td>
+                        </tr>
+                        <tr>
+                            <td>Suporte a PIX e Boleto</td>
+                            <td class="check">✅</td>
+                            <td class="check">✅</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="section">
+        <div class="container">
+            <div class="cta reveal">
+                <h2>Pronto para <span class="gradient-text">começar?</span></h2>
+                <p>
+                    Clone o repositório, rode os exemplos e veja o gateway funcionando em minutos.
+                    Projeto educacional, mas com qualidade de produção.
+                </p>
+                <div class="cta-actions">
+                    <a href="https://github.com/eu-waliston/Payment-Gateway" class="btn btn-primary">📦 Clonar Repositório</a>
+                    <a href="https://github.com/eu-waliston/Payment-Gateway" class="btn btn-outline">📖 Ler Documentação</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-icon">💳</span>
+                        <span>PaymentGateway<span style="color: var(--primary-light);">.js</span></span>
+                    </a>
+                    <p>
+                        Gateway de pagamentos educacional, moderno e extensível, feito 100% em JavaScript Vanilla.
+                    </p>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Projeto</h4>
+                    <ul>
+                        <li><a href="#features">Funcionalidades</a></li>
+                        <li><a href="#providers">Provedores</a></li>
+                        <li><a href="#architecture">Arquitetura</a></li>
+                        <li><a href="#examples">Exemplos</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway">Documentação</a></li>
+                        <li><a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway">API Completa</a></li>
+                        <li><a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway">Guia de Segurança</a></li>
+                        <li><a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway">Performance</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h4>Comunidade</h4>
+                    <ul>
+                        <li><a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway">GitHub</a></li>
+                        <li><a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway">Contribuir</a></li>
+                        <li><a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway">Licença MIT</a></li>
+                        <li><a target="_blank" href="https://github.com/eu-waliston/Payment-Gateway">Código de Conduta</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <span>MIT License © 2026 PaymentGateway.js</span>
+                <span>Feito com ❤️ para a comunidade JavaScript</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPTS ========== -->
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>
